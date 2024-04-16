@@ -16,15 +16,20 @@ public:
 
 
     bool rotationDirection = 0; // 0 = left, 1 = right
-    qreal rotationAngle = 0.25;
+    qreal rotationAngle = 0.25; // pi
     qreal detectionRange = 50;
+    qreal speed = 1;
+    qreal size = 20;
+
 
 protected:
     void advance(int step) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+
 
 private:
-    qreal angle = 0;
-    qreal speed = 0;
+    int state = 0; // 0 = idle, 1 = forward, 2 = right, 3 = left
 };
 
 
