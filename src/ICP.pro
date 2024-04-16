@@ -11,10 +11,12 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    obstacle.cpp \
     robot.cpp
 
 HEADERS += \
     mainwindow.h \
+    obstacle.h \
     robot.h
 
 FORMS += \

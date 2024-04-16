@@ -3,35 +3,23 @@
 
 #include <QGraphicsScene>
 #include <QPainter>
-#include <QRandomGenerator>
 #include <QStyleOption>
-#include <QtMath>
 
-constexpr qreal Pi = M_PI;
-constexpr qreal TwoPi = 2 * M_PI;
 
-static qreal normalizeAngle(qreal angle)
-{
-    while (angle < 0)
-        angle += TwoPi;
-    while (angle > TwoPi)
-        angle -= TwoPi;
-    return angle;
-}
-
+const qreal MANUALROTATIONSPEED = 1;
 
 Robot::Robot()
 {
-    setRotation(QRandomGenerator::global()->bounded(360 * 16));
     setAcceptHoverEvents(true);
-    setFlags(QGraphicsItem::ItemIsSelectable);
+    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
+
 }
 
 QRectF Robot::boundingRect() const
 {
     qreal adjust = 5;
     return QRectF(QPointF(-size - adjust, -size - adjust),
-                  QPoint(size + adjust, detectionRange > size ? (detectionRange + adjust) : (size + adjust)));
+                  QPoint(size + adjust, detectionRange + adjust));
 }
 
 QPainterPath Robot::shape() const
@@ -55,13 +43,15 @@ void Robot::advance(int step)
         return;
 
     // find potential colisions
-    const QList<QGraphicsItem *> dangerObstacle = scene()->items(QRectF(mapToScene(-size/2,0), mapToScene(size/2, detectionRange)));
+    QList<QGraphicsItem *> dangerObstacle = scene()->items(QRectF(mapToScene(-size/2,0), mapToScene(size/2, detectionRange)));
+
+    dangerObstacle.removeOne(this);
 
     if (!isSelected())
     {
-        if (dangerObstacle.size() > 1)
+        if (dangerObstacle.size() != 1)
         {
-            rotationDirection ? setRotation(rotation() - (rotationAngle * Pi)) : setRotation(rotation() + (rotationAngle * Pi));
+            rotationDirection ? setRotation(rotation() - (rotationAngle)) : setRotation(rotation() + (rotationAngle));
         }
         else
         {
@@ -75,17 +65,17 @@ void Robot::advance(int step)
         {
             return;
         }
-        else if (state == 1 && dangerObstacle.size() <= 1)
+        else if (state == 1 && dangerObstacle.size() == 1)
         {
             setPos(mapToParent(0, speed));
         }
         else if (state == 2)
         {
-            setRotation(rotation() + (rotationAngle * Pi));
+            setRotation(rotation() + (MANUALROTATIONSPEED));
         }
         else if (state == 3)
         {
-            setRotation(rotation() - (rotationAngle * Pi));
+            setRotation(rotation() - (MANUALROTATIONSPEED));
         }
     }
 }
@@ -99,10 +89,13 @@ void Robot::mousePressEvent(QGraphicsSceneMouseEvent* event)
         QList<QGraphicsItem*> items = scene->items();
         for (QGraphicsItem* item : items) {
             item->setSelected(false);
+            item->clearFocus();
+
         }
 
         // Select this item
         setSelected(true);
+        this->setFocus(Qt::OtherFocusReason);
         update();
     }
     QGraphicsItem::mousePressEvent(event);

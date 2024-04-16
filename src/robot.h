@@ -16,7 +16,7 @@ public:
 
 
     bool rotationDirection = 0; // 0 = left, 1 = right
-    qreal rotationAngle = 0.25; // pi
+    qreal rotationAngle = 30; // degrees
     qreal detectionRange = 50;
     qreal speed = 1;
     qreal size = 20;
