@@ -16,10 +16,44 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QGridLayout" name="gridLayout"/>
-    </item>
-    <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="backgroundBrush">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>100</red>
+           <green>100</green>
+           <blue>100</blue>
+          </color>
+         </brush>
+        </property>
+        <property name="foregroundBrush">
+         <brush brushstyle="NoBrush">
+          <color alpha="255">
+           <red>50</red>
+           <green>50</green>
+           <blue>50</blue>
+          </color>
+         </brush>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="pause">
+          <property name="text">
+           <string>run/stop</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -32,14 +66,19 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuICPapp">
+   <widget class="QMenu" name="menuSim">
     <property name="title">
-     <string>ICPapp</string>
+     <string>Sim</string>
     </property>
    </widget>
-   <addaction name="menuICPapp"/>
+   <widget class="QMenu" name="menuCreate">
+    <property name="title">
+     <string>Create</string>
+    </property>
+   </widget>
+   <addaction name="menuSim"/>
+   <addaction name="menuCreate"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

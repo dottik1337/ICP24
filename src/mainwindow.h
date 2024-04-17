@@ -20,6 +20,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    QTimer *timer;
+
+private slots:
+    void on_pause_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     void setupScene();

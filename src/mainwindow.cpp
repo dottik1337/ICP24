@@ -42,11 +42,10 @@ void MainWindow::setupScene()
         scene->addItem(obstacle);
     }
 
-
-    QGraphicsRectItem *boundry = new QGraphicsRectItem(scene->sceneRect());
-    boundry->setPen(QPen(Qt::red));
-    scene->addItem(boundry);
-
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().topRight())));
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().bottomLeft())));
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().topRight())));
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().bottomLeft())));
 
     QGraphicsView view(scene);
     view.setRenderHint(QPainter::Antialiasing);
@@ -57,7 +56,23 @@ void MainWindow::setupScene()
     view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "ICP"));
     view.show();
 
-    QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     connect(timer, &QTimer::timeout, scene, &QGraphicsScene::advance);
-    timer->start(1000 / 33);
+    timer->start(30);
 }
+
+
+void MainWindow::on_pause_toggled(bool checked)
+{
+
+    if(checked)
+    {
+        timer->stop();
+    }
+    else
+    {
+        timer->start(30);
+    }
+}
+
+

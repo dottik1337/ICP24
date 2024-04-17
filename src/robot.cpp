@@ -43,13 +43,13 @@ void Robot::advance(int step)
         return;
 
     // find potential colisions
-    QList<QGraphicsItem *> dangerObstacle = scene()->items(QRectF(mapToScene(-size/2,0), mapToScene(size/2, detectionRange)));
+    QList<QGraphicsItem *> dangerObstacle = scene()->items(QRectF(mapToScene(-size,0), mapToScene(size, detectionRange)));
 
     dangerObstacle.removeOne(this);
 
     if (!isSelected())
     {
-        if (dangerObstacle.size() != 1)
+        if (dangerObstacle.size() != 0)
         {
             rotationDirection ? setRotation(rotation() - (rotationAngle)) : setRotation(rotation() + (rotationAngle));
         }
@@ -65,7 +65,7 @@ void Robot::advance(int step)
         {
             return;
         }
-        else if (state == 1 && dangerObstacle.size() == 1)
+        else if (state == 1 && dangerObstacle.size() == 0)
         {
             setPos(mapToParent(0, speed));
         }
