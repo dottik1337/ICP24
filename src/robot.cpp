@@ -47,7 +47,7 @@ void Robot::advance(int step)
 
     dangerObstacle.removeOne(this);
 
-    if (!isSelected())
+    if (!isSelected() && !hasFocus())
     {
         if (dangerObstacle.size() != 0)
         {

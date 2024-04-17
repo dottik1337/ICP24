@@ -1,9 +1,11 @@
 #include "mainwindow.h"
+#include "qevent.h"
 #include "ui_mainwindow.h"
 
 #include "robot.h"
 #include "obstacle.h"
 #include <qmath.h>
+#include <QMessageBox> //remove
 
 static constexpr int RobotCount = 20;
 
@@ -38,7 +40,7 @@ void MainWindow::setupScene()
 
         Obstacle *obstacle = new Obstacle;
         obstacle->setPos(::sin((i * 6.28) / RobotCount) * 400,
-                         ::cos((i * 6.28) / RobotCount) * 400);
+                         ::cos((i * 6.28) / RobotCount) * 8000);
         scene->addItem(obstacle);
     }
 
@@ -75,4 +77,42 @@ void MainWindow::on_pause_toggled(bool checked)
     }
 }
 
+void MainWindow::on_GO_clicked()
+{
+    ui->graphicsView->setFocus();
+    ui->graphicsView->scene()->setFocus();
+
+    QKeyEvent *simKey = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_W, Qt::NoModifier);
+    QApplication::sendEvent(ui->graphicsView->scene(), simKey);
+}
+
+
+void MainWindow::on_LEFT_clicked()
+{
+    ui->graphicsView->setFocus();
+    ui->graphicsView->scene()->setFocus();
+
+    QKeyEvent *simKey = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_A, Qt::NoModifier);
+    QApplication::sendEvent(ui->graphicsView->scene(), simKey);
+}
+
+
+void MainWindow::on_RIGHT_clicked()
+{
+    ui->graphicsView->setFocus();
+    ui->graphicsView->scene()->setFocus();
+
+    QKeyEvent *simKey = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_D, Qt::NoModifier);
+    QApplication::sendEvent(ui->graphicsView->scene(), simKey);
+}
+
+
+void MainWindow::on_STOP_clicked()
+{
+    ui->graphicsView->setFocus();
+    ui->graphicsView->scene()->setFocus();
+
+    QKeyEvent *simKey = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_S, Qt::NoModifier);
+    QApplication::sendEvent(ui->graphicsView->scene(), simKey);
+}
 

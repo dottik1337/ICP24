@@ -25,6 +25,14 @@ public:
 private slots:
     void on_pause_toggled(bool checked);
 
+    void on_GO_clicked();
+
+    void on_LEFT_clicked();
+
+    void on_RIGHT_clicked();
+
+    void on_STOP_clicked();
+
 private:
     Ui::MainWindow *ui;
     void setupScene();
