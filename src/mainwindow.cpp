@@ -40,7 +40,7 @@ void MainWindow::setupScene()
 
         Obstacle *obstacle = new Obstacle;
         obstacle->setPos(::sin((i * 6.28) / RobotCount) * 400,
-                         ::cos((i * 6.28) / RobotCount) * 8000);
+                         ::cos((i * 6.28) / RobotCount) * 80);
         scene->addItem(obstacle);
     }
 
@@ -58,16 +58,18 @@ void MainWindow::setupScene()
     view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "ICP"));
     view.show();
 
+    this->findChild<QWidget *>("creator")->setVisible(false);
+    this->findChild<QWidget *>("creator")->setEnabled(false);
+
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, scene, &QGraphicsScene::advance);
     timer->start(30);
 }
 
 
-void MainWindow::on_pause_toggled(bool checked)
+void MainWindow::on_pause_clicked()
 {
-
-    if(checked)
+    if(timer->isActive())
     {
         timer->stop();
     }
@@ -114,5 +116,31 @@ void MainWindow::on_STOP_clicked()
 
     QKeyEvent *simKey = new QKeyEvent(QKeyEvent::KeyPress, Qt::Key_S, Qt::NoModifier);
     QApplication::sendEvent(ui->graphicsView->scene(), simKey);
+}
+
+
+void MainWindow::on_actionSIm_triggered()
+{
+    this->findChild<QWidget *>("controls")->setVisible(true);
+    this->findChild<QWidget *>("controls")->setEnabled(true);
+    this->findChild<QWidget *>("creator")->setVisible(false);
+    this->findChild<QWidget *>("creator")->setEnabled(false);
+}
+
+
+void MainWindow::on_actionCreator_triggered()
+{
+    timer->stop();
+    this->findChild<QWidget *>("controls")->setVisible(false);
+    this->findChild<QWidget *>("controls")->setEnabled(false);
+    this->findChild<QWidget *>("creator")->setVisible(true);
+    this->findChild<QWidget *>("creator")->setEnabled(true);
+}
+
+
+
+void MainWindow::on_clearScene_clicked()
+{
+    ui->graphicsView->scene()->clear();
 }
 

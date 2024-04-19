@@ -23,7 +23,7 @@ public:
     QTimer *timer;
 
 private slots:
-    void on_pause_toggled(bool checked);
+    void on_pause_clicked();
 
     void on_GO_clicked();
 
@@ -32,6 +32,12 @@ private slots:
     void on_RIGHT_clicked();
 
     void on_STOP_clicked();
+
+    void on_actionSIm_triggered();
+
+    void on_actionCreator_triggered();
+
+    void on_clearScene_clicked();
 
 private:
     Ui::MainWindow *ui;
