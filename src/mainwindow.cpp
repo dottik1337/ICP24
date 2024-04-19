@@ -9,9 +9,7 @@
 
 static constexpr int RobotCount = 20;
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     setupScene();
@@ -27,10 +25,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupScene()
 {
+    // Set up scene
     auto *scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->viewport()->installEventFilter(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
+
+    // TEMP spawning robots and obstacles
     for (int i = 0; i < RobotCount; ++i) {
         Robot *robot = new Robot;
         robot->setPos(::sin((i * 6.28) / RobotCount) * 200,
@@ -44,26 +46,58 @@ void MainWindow::setupScene()
         scene->addItem(obstacle);
     }
 
+    // TEMP spawning border around items
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().topRight())));
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().bottomLeft())));
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().topRight())));
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().bottomLeft())));
 
+    // Set up window
     QGraphicsView view(scene);
     view.setRenderHint(QPainter::Antialiasing);
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     view.setDragMode(QGraphicsView::ScrollHandDrag);
-
     view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "ICP"));
     view.show();
 
+    // Default view on Sim
     this->findChild<QWidget *>("creator")->setVisible(false);
     this->findChild<QWidget *>("creator")->setEnabled(false);
 
+    // Set up simulation
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, scene, &QGraphicsScene::advance);
     timer->start(30);
+}
+
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    // Handeling mouse presses
+    if (obj == ui->graphicsView->viewport() && event->type() == QEvent::MouseButtonPress) {
+
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+
+        // Adding obstacles
+        if (ui->addObstacle->isChecked() && mouseEvent->button() == Qt::LeftButton)
+        {
+            spawnObstacle(mouseEvent);
+            return true;
+        }
+        else if (ui->deleteItem->isChecked() && mouseEvent->button() == Qt::LeftButton)
+        {
+            removeItem(mouseEvent);
+            return true;
+        }
+        else if (ui->addRobot->isChecked() && mouseEvent->button() == Qt::LeftButton)
+        {
+            spawnRobot(mouseEvent);
+            return true;
+        }
+    }
+    // If the event is not handled here, pass it to the base class
+    return QMainWindow::eventFilter(obj, event);
 }
 
 
@@ -121,20 +155,25 @@ void MainWindow::on_STOP_clicked()
 
 void MainWindow::on_actionSIm_triggered()
 {
-    this->findChild<QWidget *>("controls")->setVisible(true);
-    this->findChild<QWidget *>("controls")->setEnabled(true);
-    this->findChild<QWidget *>("creator")->setVisible(false);
-    this->findChild<QWidget *>("creator")->setEnabled(false);
+    ui->controls->setVisible(true);
+    ui->controls->setEnabled(true);
+    ui->creator->setVisible(false);
+    ui->creator->setEnabled(false);
+
+    ui->addObstacle->setChecked(false);
+    ui->addRobot->setChecked(false);
+    ui->deleteItem->setChecked(false);
 }
 
 
 void MainWindow::on_actionCreator_triggered()
 {
     timer->stop();
-    this->findChild<QWidget *>("controls")->setVisible(false);
-    this->findChild<QWidget *>("controls")->setEnabled(false);
-    this->findChild<QWidget *>("creator")->setVisible(true);
-    this->findChild<QWidget *>("creator")->setEnabled(true);
+
+    ui->controls->setVisible(false);
+    ui->controls->setEnabled(false);
+    ui->creator->setVisible(true);
+    ui->creator->setEnabled(true);
 }
 
 
@@ -142,5 +181,53 @@ void MainWindow::on_actionCreator_triggered()
 void MainWindow::on_clearScene_clicked()
 {
     ui->graphicsView->scene()->clear();
+}
+
+void MainWindow::spawnObstacle(QMouseEvent *event)
+{
+    Obstacle *obstacle = new Obstacle();
+    obstacle->size = ui->crObstacleSize->value();
+    obstacle->setPos(ui->graphicsView->mapToScene(event->pos()));
+    ui->graphicsView->scene()->addItem(obstacle);
+}
+
+
+void MainWindow::removeItem(QMouseEvent *event)
+{
+    QGraphicsItem *item = ui->graphicsView->scene()->itemAt(ui->graphicsView->mapToScene(event->pos()), QTransform());
+    ui->graphicsView->scene()->removeItem(item);
+}
+
+void MainWindow::spawnRobot(QMouseEvent *event)
+{
+    Robot *robot = new Robot();
+    robot->size = ui->crRobotSize->value();
+    robot->detectionRange = ui->crRobotDetectionRange->value();
+    robot->rotationAngle = ui->crRobotRotationAngle->value();
+    robot->rotationDirection = ui->crRobotRotationDirection->currentIndex();
+    robot->setRotation(ui->crRobotDirection->value());
+
+    robot->setPos(ui->graphicsView->mapToScene(event->pos()));
+    ui->graphicsView->scene()->addItem(robot);
+}
+
+void MainWindow::on_addRobot_clicked()
+{
+    ui->addObstacle->setChecked(false);
+    ui->deleteItem->setChecked(false);
+}
+
+
+void MainWindow::on_addObstacle_clicked()
+{
+    ui->addRobot->setChecked(false);
+    ui->deleteItem->setChecked(false);
+}
+
+
+void MainWindow::on_deleteItem_clicked()
+{
+    ui->addRobot->setChecked(false);
+    ui->addObstacle->setChecked(false);
 }
 

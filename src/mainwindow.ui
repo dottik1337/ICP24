@@ -420,6 +420,9 @@
             <property name="text">
              <string>Add Robot</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -430,7 +433,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="obstacleSize">
+           <widget class="QDoubleSpinBox" name="crObstacleSize">
             <property name="decimals">
              <number>1</number>
             </property>
@@ -443,9 +446,12 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="addRobot_2">
+           <widget class="QPushButton" name="addObstacle">
             <property name="text">
              <string>Add Obstacle</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -453,6 +459,9 @@
            <widget class="QPushButton" name="deleteItem">
             <property name="text">
              <string>Delete Item</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

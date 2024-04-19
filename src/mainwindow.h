@@ -39,9 +39,20 @@ private slots:
 
     void on_clearScene_clicked();
 
+
+    void on_addRobot_clicked();
+
+    void on_addObstacle_clicked();
+
+    void on_deleteItem_clicked();
+
 private:
     Ui::MainWindow *ui;
     void setupScene();
     QGraphicsScene *scene;
+    bool eventFilter(QObject *obj, QEvent *event);
+    void spawnObstacle(QMouseEvent *event);
+    void removeItem(QMouseEvent *event);
+    void spawnRobot(QMouseEvent *event);
 };
 #endif // MAINWINDOW_H
