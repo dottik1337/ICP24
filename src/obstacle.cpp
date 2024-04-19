@@ -7,6 +7,7 @@ Obstacle::Obstacle()
     setFlag(QGraphicsItem::ItemIsMovable);
 }
 
+//Obstacle area for redrawing
 QRectF Obstacle::boundingRect() const
 {
     qreal adjust = 5;
@@ -14,6 +15,7 @@ QRectF Obstacle::boundingRect() const
                   QPointF(x + size + adjust, y + size + adjust));
 }
 
+// Obstacle hitbox
 QPainterPath Obstacle::shape() const
 {
     QPainterPath path;
@@ -21,6 +23,7 @@ QPainterPath Obstacle::shape() const
     return path;
 }
 
+// Obstacle visual
 void Obstacle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // Body

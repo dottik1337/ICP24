@@ -32,7 +32,7 @@ void MainWindow::setupScene()
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
 
-    // TEMP spawning robots and obstacles
+    // TEMP spawning testing robots and obstacles
     for (int i = 0; i < RobotCount; ++i) {
         Robot *robot = new Robot;
         robot->setPos(::sin((i * 6.28) / RobotCount) * 200,
@@ -85,22 +85,24 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             spawnObstacle(mouseEvent);
             return true;
         }
+        // Deleting items
         else if (ui->deleteItem->isChecked() && mouseEvent->button() == Qt::LeftButton)
         {
             removeItem(mouseEvent);
             return true;
         }
+        // Adding robots
         else if (ui->addRobot->isChecked() && mouseEvent->button() == Qt::LeftButton)
         {
             spawnRobot(mouseEvent);
             return true;
         }
     }
-    // If the event is not handled here, pass it to the base class
+    // Return event if it isn't filtered
     return QMainWindow::eventFilter(obj, event);
 }
 
-
+// pause simalation
 void MainWindow::on_pause_clicked()
 {
     if(timer->isActive())
@@ -113,6 +115,7 @@ void MainWindow::on_pause_clicked()
     }
 }
 
+// move manual control robot foreward
 void MainWindow::on_GO_clicked()
 {
     ui->graphicsView->setFocus();
@@ -122,7 +125,7 @@ void MainWindow::on_GO_clicked()
     QApplication::sendEvent(ui->graphicsView->scene(), simKey);
 }
 
-
+// rotate manual control robot left
 void MainWindow::on_LEFT_clicked()
 {
     ui->graphicsView->setFocus();
@@ -132,7 +135,7 @@ void MainWindow::on_LEFT_clicked()
     QApplication::sendEvent(ui->graphicsView->scene(), simKey);
 }
 
-
+// rotate manual control robot right
 void MainWindow::on_RIGHT_clicked()
 {
     ui->graphicsView->setFocus();
@@ -142,7 +145,7 @@ void MainWindow::on_RIGHT_clicked()
     QApplication::sendEvent(ui->graphicsView->scene(), simKey);
 }
 
-
+// stop manual control robot
 void MainWindow::on_STOP_clicked()
 {
     ui->graphicsView->setFocus();
@@ -152,7 +155,7 @@ void MainWindow::on_STOP_clicked()
     QApplication::sendEvent(ui->graphicsView->scene(), simKey);
 }
 
-
+// Switch to SIMULATION mode
 void MainWindow::on_actionSIm_triggered()
 {
     ui->controls->setVisible(true);
@@ -165,7 +168,7 @@ void MainWindow::on_actionSIm_triggered()
     ui->deleteItem->setChecked(false);
 }
 
-
+// Switch to CREATOR mode
 void MainWindow::on_actionCreator_triggered()
 {
     timer->stop();
@@ -176,13 +179,13 @@ void MainWindow::on_actionCreator_triggered()
     ui->creator->setEnabled(true);
 }
 
-
-
+// Remove all items from scene
 void MainWindow::on_clearScene_clicked()
 {
     ui->graphicsView->scene()->clear();
 }
 
+// Spawn obstacle on cursor position when left-click
 void MainWindow::spawnObstacle(QMouseEvent *event)
 {
     Obstacle *obstacle = new Obstacle();
@@ -191,13 +194,14 @@ void MainWindow::spawnObstacle(QMouseEvent *event)
     ui->graphicsView->scene()->addItem(obstacle);
 }
 
-
+// Remove item on cursor position when left-click
 void MainWindow::removeItem(QMouseEvent *event)
 {
     QGraphicsItem *item = ui->graphicsView->scene()->itemAt(ui->graphicsView->mapToScene(event->pos()), QTransform());
     ui->graphicsView->scene()->removeItem(item);
 }
 
+// Spawn robot on cursor position when left-click
 void MainWindow::spawnRobot(QMouseEvent *event)
 {
     Robot *robot = new Robot();
@@ -211,20 +215,21 @@ void MainWindow::spawnRobot(QMouseEvent *event)
     ui->graphicsView->scene()->addItem(robot);
 }
 
+// Select ADD_ROBOT mode
 void MainWindow::on_addRobot_clicked()
 {
     ui->addObstacle->setChecked(false);
     ui->deleteItem->setChecked(false);
 }
 
-
+// Select ADD_OBSTACLE mode
 void MainWindow::on_addObstacle_clicked()
 {
     ui->addRobot->setChecked(false);
     ui->deleteItem->setChecked(false);
 }
 
-
+// Select DELETE mode
 void MainWindow::on_deleteItem_clicked()
 {
     ui->addRobot->setChecked(false);

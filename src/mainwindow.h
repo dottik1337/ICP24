@@ -39,7 +39,6 @@ private slots:
 
     void on_clearScene_clicked();
 
-
     void on_addRobot_clicked();
 
     void on_addObstacle_clicked();

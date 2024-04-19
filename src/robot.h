@@ -11,8 +11,10 @@ public:
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget) override;
+    void paint(
+                QPainter *painter,
+          const QStyleOptionGraphicsItem *option,
+                QWidget *widget) override;
 
 
     bool rotationDirection = 0; // 0 = left, 1 = right

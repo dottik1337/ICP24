@@ -15,6 +15,7 @@ Robot::Robot()
 
 }
 
+// Robot area for redrawing
 QRectF Robot::boundingRect() const
 {
     qreal adjust = 5;
@@ -22,6 +23,7 @@ QRectF Robot::boundingRect() const
                   QPoint(size + adjust, detectionRange + adjust));
 }
 
+// Robot hitbox
 QPainterPath Robot::shape() const
 {
     QPainterPath path;
@@ -29,24 +31,27 @@ QPainterPath Robot::shape() const
     return path;
 }
 
+// Robot visual
 void Robot::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // Body
     painter->setBrush(isSelected() ? Qt::red : Qt::white);
     painter->drawEllipse(-size/2,-size/2,size,size);
+    // TEMP draw robot direction
     painter->drawLine(QLine(QPoint(0,0), QPoint(0, detectionRange)));
 }
 
+// Animate Robots
 void Robot::advance(int step)
 {
     if (!step)
         return;
 
-    // find potential colisions
-    QList<QGraphicsItem *> dangerObstacle = scene()->items(QRectF(mapToScene(-size,0), mapToScene(size, detectionRange)));
-
+    // Colision detection
+    QList<QGraphicsItem *> dangerObstacle = scene()->items(QRectF(mapToParent(-size, 0), mapToParent(size, detectionRange)));
     dangerObstacle.removeOne(this);
 
+    // Is automatic robot
     if (!isSelected() && !hasFocus())
     {
         if (dangerObstacle.size() != 0)
@@ -59,6 +64,7 @@ void Robot::advance(int step)
 
         }
     }
+    // Manual robot
     else
     {
         if (state == 0)
@@ -81,6 +87,7 @@ void Robot::advance(int step)
 }
 
 
+// Selecting robot for manual control
 void Robot::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene* scene = this->scene();
@@ -101,6 +108,7 @@ void Robot::mousePressEvent(QGraphicsSceneMouseEvent* event)
     QGraphicsItem::mousePressEvent(event);
 }
 
+// Manual controls on keyboard
 void Robot::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_W)
