@@ -12,12 +12,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     obstacle.cpp \
-    robot.cpp
+    robot.cpp \
+    savemanager.cpp
 
 HEADERS += \
     mainwindow.h \
     obstacle.h \
-    robot.h
+    robot.h \
+    savemanager.h
 
 FORMS += \
     mainwindow.ui
