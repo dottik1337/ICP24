@@ -20,5 +20,5 @@ clean:
 run: all
 	./$(BUILD)/$(EXEC)
 
-pack:
-	zip -r xgallo06.zip src README.md CHANGELOG.md LICENSE Makefile doc test.py
+pack: clean
+	echo "not implemnted yet"
