@@ -1,4 +1,4 @@
-EXEC = icp
+EXEC = ICP
 CXX = clang++
 CXXFLAGS=-Wall -std=c++17 -g 
 
@@ -17,8 +17,8 @@ all:
 clean:
 	cd $(BUILD) && rm -rf * .[!.]*
 
-run:
-	all && $(build)/$(EXEC)
+run: all
+	./$(BUILD)/$(EXEC)
 
 pack:
 	zip -r xgallo06.zip src README.md CHANGELOG.md LICENSE Makefile doc test.py
