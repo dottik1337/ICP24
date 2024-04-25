@@ -16,8 +16,6 @@ public:
                 QWidget *widget) override;
 
     qreal size = 10;
-    qreal x = 0;
-    qreal y = 0;
 };
 
 #endif // OBSTACLE_H
