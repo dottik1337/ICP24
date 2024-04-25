@@ -4,7 +4,9 @@
 
 #include "robot.h"
 #include "obstacle.h"
+#include "savemanager.h"
 #include <qmath.h>
+#include <QFileDialog>
 #include <QMessageBox> //remove
 
 static constexpr int RobotCount = 20;
@@ -234,5 +236,27 @@ void MainWindow::on_deleteItem_clicked()
 {
     ui->addRobot->setChecked(false);
     ui->addObstacle->setChecked(false);
+}
+
+// Loads file
+void MainWindow::on_loadScene_clicked()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                "./",
+                                                tr("JSON file (*.json)"));
+    SaveManager sm;
+    auto *scene = new QGraphicsScene(ui->graphicsView);
+    sm.readJson(path, scene);
+    ui->graphicsView->setScene(scene);
+}
+
+
+void MainWindow::on_saveScene_clicked()
+{
+    QString path = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                "./",
+                                                tr("JSON file (*.json)"));
+    SaveManager sm;
+    sm.saveJson(path, this->ui->graphicsView->scene());
 }
 
