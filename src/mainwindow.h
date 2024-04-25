@@ -45,6 +45,10 @@ private slots:
 
     void on_deleteItem_clicked();
 
+    void on_loadScene_clicked();
+
+    void on_saveScene_clicked();
+
 private:
     Ui::MainWindow *ui;
     void setupScene();
