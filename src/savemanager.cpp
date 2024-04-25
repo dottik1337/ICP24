@@ -171,8 +171,8 @@ QJsonObject SaveManager::makeRobotJson(const Robot *robot){
 }
 QJsonObject SaveManager::makeObstacleJson(const Obstacle *obstacle){
     QJsonObject obj;
-    obj["x"] = obstacle->x; //not working correctly
-    obj["y"] = obstacle->y; //TODO
+    obj["x"] = obstacle->x(); //not working correctly
+    obj["y"] = obstacle->y(); //TODO
     obj["size"] = obstacle->size;
     return obj;
 }
