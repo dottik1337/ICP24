@@ -16,6 +16,8 @@ SOURCES += \
     savemanager.cpp
 
 HEADERS += \
+    exceptions/GameLoadException.h \
+    exceptions/GameSaveException.h \
     mainwindow.h \
     obstacle.h \
     robot.h \
