@@ -1,24 +1,33 @@
 EXEC = ICP
-CXX = clang++
-CXXFLAGS=-Wall -std=c++17 -g 
-
-HFILES = $(wildcard *.h)
-SRCS = $(wildcard src/*.cpp)
-OBJS = $(patsubst %.cpp,%.o,$(SRCS))
+PACK_FILE = xgallo06_xstast41.zip
 
 PRO = $(wildcard src/*.pro)
-BUILD = build
+BUILD_DIR = build
+DOCS_DIR = doc
+SRC_DIR = src
+EXAMPLES_DIR = examples
 
-.PHONY: all clean run pack
+.PHONY: all clean run pack doxygen readme_txt
 
-all: 
-	cd $(BUILD) && qmake ../$(PRO) && make
+all:
+	mkdir -p $(BUILD_DIR)
+	cd $(BUILD_DIR) && qmake ../$(PRO) && make
 
 clean:
-	cd $(BUILD) && rm -rf * .[!.]*
+	cd $(BUILD_DIR) && rm -rf * .[!.]*
+	rm -rf build-ICP-Desktop-Debug
+	cd $(DOCS_DIR) && rm -rf * .[!.]*
+	rm -f $(PACK_FILE)
+	rm -f README.txt
 
 run: all
-	./$(BUILD)/$(EXEC)
+	./$(BUILD_DIR)/$(EXEC)
 
-pack: clean
-	echo "not implemnted yet"
+doxygen: clean
+	doxygen Doxyfile
+
+readme_txt:
+	cp README.md README.txt
+
+pack: clean readme_txt
+	zip -r $(PACK_FILE) $(SRC_DIR) $(DOCS_DIR) $(EXAMPLES_DIR) Makefile Doxyfile README.txt README.md
