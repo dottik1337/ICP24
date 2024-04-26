@@ -242,19 +242,18 @@ void MainWindow::on_deleteItem_clicked()
 void MainWindow::on_loadScene_clicked()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                "./",
+                                                "../ICP/examples", // QoL change
                                                 tr("JSON file (*.json)"));
     SaveManager sm;
-    auto *scene = new QGraphicsScene(ui->graphicsView);
-    sm.readJson(path, scene);
-    ui->graphicsView->setScene(scene);
+    ui->graphicsView->scene()->clear();
+    sm.readJson(path, ui->graphicsView->scene()); // using existing scene instead of creating new one
 }
 
 
 void MainWindow::on_saveScene_clicked()
 {
     QString path = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                "./",
+                                                "../ICP/examples", // QoL change
                                                 tr("JSON file (*.json)"));
     SaveManager sm;
     sm.saveJson(path, this->ui->graphicsView->scene());
