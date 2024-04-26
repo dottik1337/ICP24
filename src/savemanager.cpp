@@ -6,11 +6,6 @@
 #include "exceptions/GameLoadException.h"
 #include "exceptions/GameSaveException.h"
 
-SaveManager::SaveManager()
-{
-
-}
-
 /**
  * @brief SaveManager::readJson reads Json file and loads robots and obstacles to the scene
  * @param path Json file path
@@ -54,7 +49,7 @@ void SaveManager::readJson(QString path, QGraphicsScene* scene){
             throw GameLoadException();
 
         // Adds robot to scene
-        this->AddRobotToScene(scene, x.toDouble(), y.toDouble(), rot_dir.toBool(),
+        AddRobotToScene(scene, x.toDouble(), y.toDouble(), rot_dir.toBool(),
                              rot_angle.toDouble(), det_range.toDouble(),rotation.toDouble(),speed.toDouble());
 
     }
@@ -70,7 +65,7 @@ void SaveManager::readJson(QString path, QGraphicsScene* scene){
             throw GameLoadException();
 
         // Adds Obstacle to scene
-        this->AddObstacleToScene(scene, x.toDouble(), y.toDouble(), size.toDouble());
+        AddObstacleToScene(scene, x.toDouble(), y.toDouble(), size.toDouble());
     }
 }
 
@@ -135,12 +130,12 @@ void SaveManager::saveJson(QString path, QGraphicsScene* scene){
     {
         // item is instance of Robot
         if (auto robot = dynamic_cast<const Robot*>(item)){
-            auto r = this->makeRobotJson(robot);
+            auto r = makeRobotJson(robot);
             robots.append(r);
         }
         // item is instance of Obstacle
         else if (auto obstacle = dynamic_cast<const Obstacle*>(item)){
-            auto o = this->makeObstacleJson(obstacle);
+            auto o = makeObstacleJson(obstacle);
             obstacles.append(o);
         }
     }
@@ -158,6 +153,11 @@ void SaveManager::saveJson(QString path, QGraphicsScene* scene){
     saveFile.write(doc.toJson());
 }
 
+/**
+ * @brief SaveManager::makeRobotJson turns Robot objects into QJsonObjects
+ * @param robot to be turned into QJsonObject
+ * @return QJsonObject from Robot object
+ */
 QJsonObject SaveManager::makeRobotJson(const Robot *robot){
     QJsonObject obj;
     obj["x"] = robot->x();
@@ -169,6 +169,12 @@ QJsonObject SaveManager::makeRobotJson(const Robot *robot){
     obj["rotation"] = robot->rotation();
     return obj;
 }
+
+/**
+ * @brief SaveManager::makeObstacleJson turns Obstacle objects into QJsonObjects
+ * @param obstacle to be turned into QJsonObject
+ * @return QJsonObject from Obstacle object
+ */
 QJsonObject SaveManager::makeObstacleJson(const Obstacle *obstacle){
     QJsonObject obj;
     obj["x"] = obstacle->x(); //not working correctly

@@ -244,9 +244,14 @@ void MainWindow::on_loadScene_clicked()
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                 "../ICP/examples", // QoL change
                                                 tr("JSON file (*.json)"));
-    SaveManager sm;
+    if (path.isEmpty()) return;
     ui->graphicsView->scene()->clear();
-    sm.readJson(path, ui->graphicsView->scene()); // using existing scene instead of creating new one
+    try {
+        SaveManager::readJson(path, ui->graphicsView->scene()); // using existing scene instead of creating new one
+    }
+    catch (std::exception &e){
+        qWarning() << e.what();
+    }
 }
 
 
@@ -255,7 +260,13 @@ void MainWindow::on_saveScene_clicked()
     QString path = QFileDialog::getSaveFileName(this, tr("Save File"),
                                                 "../ICP/examples", // QoL change
                                                 tr("JSON file (*.json)"));
-    SaveManager sm;
-    sm.saveJson(path, this->ui->graphicsView->scene());
+    if (path.isEmpty()) return;
+    try {
+        SaveManager::saveJson(path, this->ui->graphicsView->scene());
+    }
+    catch (std::exception &e){
+        qWarning() << e.what();
+    }
+
 }
 
