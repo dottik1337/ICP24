@@ -48,8 +48,8 @@ void MainWindow::setupScene()
         scene->addItem(robot);
 
         Obstacle *obstacle = new Obstacle;
-        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 160 + 200,
-                         ::cos((i * 6.28) / RobotCount) * 100 + 150);
+        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 160 + 400,
+                         ::cos((i * 6.28) / RobotCount) * 100 + 300);
         scene->addItem(obstacle);
     }
 
