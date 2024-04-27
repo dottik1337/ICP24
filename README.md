@@ -1,7 +1,7 @@
 # Simple 2D Mobile Robot Simulator
 This project is part of the ICP (C++ Seminar) course at VUT FIT.
 
-##Authors
+## Authors
 - Jozef Gallo (xgallo06)
 - Zdeněk Šťastný (xstast41)
 
