@@ -28,23 +28,28 @@ MainWindow::~MainWindow()
 void MainWindow::setupScene()
 {
     // Set up scene
-    auto *scene = new QGraphicsScene(ui->graphicsView);
+    scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
+
+    ui->graphicsView->setFixedSize(800,600);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scene->setSceneRect(0,0,800,600);
+
     ui->graphicsView->viewport()->installEventFilter(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-
 
     // TEMP spawning testing robots and obstacles
     for (int i = 0; i < RobotCount; ++i) {
         Robot *robot = new Robot;
-        robot->setPos(::sin((i * 6.28) / RobotCount) * 200,
-                      ::cos((i * 6.28) / RobotCount) * 200);
+        robot->setPos(::sin((i * 6.28) / RobotCount) * 200 + 400,
+                      ::cos((i * 6.28) / RobotCount) * 200 + 300);
         robot->rotationDirection = i%2;
         scene->addItem(robot);
 
         Obstacle *obstacle = new Obstacle;
-        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 400,
-                         ::cos((i * 6.28) / RobotCount) * 80);
+        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 160 + 200,
+                         ::cos((i * 6.28) / RobotCount) * 100 + 150);
         scene->addItem(obstacle);
     }
 
@@ -184,7 +189,7 @@ void MainWindow::on_actionCreator_triggered()
 // Remove all items from scene
 void MainWindow::on_clearScene_clicked()
 {
-    ui->graphicsView->scene()->clear();
+    this->clearScene();
 }
 
 // Spawn obstacle on cursor position when left-click
@@ -245,7 +250,7 @@ void MainWindow::on_loadScene_clicked()
                                                 "../ICP/examples", // QoL change
                                                 tr("JSON file (*.json)"));
     if (path.isEmpty()) return;
-    ui->graphicsView->scene()->clear();
+    this->clearScene();
     try {
         SaveManager::readJson(path, ui->graphicsView->scene()); // using existing scene instead of creating new one
     }
@@ -268,5 +273,15 @@ void MainWindow::on_saveScene_clicked()
         qWarning() << e.what();
     }
 
+}
+
+void MainWindow::clearScene(){
+    scene->clear();
+
+    // spawning border around scene
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().topRight())));
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().bottomLeft())));
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().topRight())));
+    scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().bottomLeft())));
 }
 

@@ -84,6 +84,12 @@ void SaveManager::AddRobotToScene(QGraphicsScene* scene, qreal x, qreal y, bool 
                      qreal rot_angle, qreal det_range, qreal rotation, qreal speed){
     Robot *robot = new Robot;
 
+    // Checking if the object is out of scene bounds
+    auto width = scene->sceneRect().right();
+    auto height = scene->sceneRect().bottom();
+    if (x > width || x < 0 || y > height || y < 0)
+        throw GameLoadException();
+
     // Setting parameters
     robot->setPos(x,y);
     robot->rotationDirection = rot_dir;
@@ -104,6 +110,12 @@ void SaveManager::AddRobotToScene(QGraphicsScene* scene, qreal x, qreal y, bool 
  */
 void SaveManager::AddObstacleToScene(QGraphicsScene* scene, qreal x, qreal y, qreal size){
     Obstacle *obstacle = new Obstacle;
+
+    // Checking if the object is out of scene bounds
+    auto width = scene->sceneRect().right();
+    auto height = scene->sceneRect().bottom();
+    if (x > width || x < 0 || y > height || y < 0)
+        throw GameLoadException();
 
     // Setting parameters
     obstacle->setPos(x,y);

@@ -57,5 +57,6 @@ private:
     void spawnObstacle(QMouseEvent *event);
     void removeItem(QMouseEvent *event);
     void spawnRobot(QMouseEvent *event);
+    void clearScene();
 };
 #endif // MAINWINDOW_H
