@@ -362,9 +362,6 @@
             <property name="currentText">
              <string>left</string>
             </property>
-            <property name="placeholderText">
-             <string>RobotDirection</string>
-            </property>
             <item>
              <property name="text">
               <string>left</string>
