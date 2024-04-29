@@ -42,15 +42,16 @@ void SaveManager::readJson(QString path, QGraphicsScene* scene){
         QJsonValue speed = robot["speed"];
         QJsonValue rotation = robot["rotation"];
         QJsonValue rot_angle = robot["rot_angle"];
+        QJsonValue size = robot["size"];
 
         // Chceck if Json values are correct
         if (!(x.isDouble() && y.isDouble() && det_range.isDouble() && rot_dir.isBool()
-              && speed.isDouble() && rotation.isDouble() && rot_angle.isDouble()))
+              && speed.isDouble() && rotation.isDouble() && rot_angle.isDouble() && size.isDouble()))
             throw GameLoadException();
 
         // Adds robot to scene
         AddRobotToScene(scene, x.toDouble(), y.toDouble(), rot_dir.toBool(),
-                             rot_angle.toDouble(), det_range.toDouble(),rotation.toDouble(),speed.toDouble());
+                             rot_angle.toDouble(), det_range.toDouble(),rotation.toDouble(),speed.toDouble(), size.toDouble());
 
     }
 
@@ -81,7 +82,7 @@ void SaveManager::readJson(QString path, QGraphicsScene* scene){
  * @param speed parameter of robot
  */
 void SaveManager::AddRobotToScene(QGraphicsScene* scene, qreal x, qreal y, bool rot_dir,
-                     qreal rot_angle, qreal det_range, qreal rotation, qreal speed){
+                     qreal rot_angle, qreal det_range, qreal rotation, qreal speed, qreal size){
     Robot *robot = new Robot;
 
     // Checking if the object is out of scene bounds
@@ -97,6 +98,7 @@ void SaveManager::AddRobotToScene(QGraphicsScene* scene, qreal x, qreal y, bool 
     robot->detectionRange = det_range;
     robot->speed = speed;
     robot->setRotation(rotation);
+    robot->size = size;
 
     scene->addItem(robot);
 }
@@ -179,6 +181,7 @@ QJsonObject SaveManager::makeRobotJson(const Robot *robot){
     obj["rot_dir"] = robot->rotationDirection;
     obj["det_range"] = robot->detectionRange;
     obj["rotation"] = robot->rotation();
+    obj["size"] = robot->size;
     return obj;
 }
 

@@ -11,7 +11,7 @@ class SaveManager
 {
 private:
     static void AddRobotToScene(QGraphicsScene* scene, qreal x, qreal y, bool rot_dir,
-                         qreal rot_angle, qreal det_range, qreal rotation, qreal speed);
+                         qreal rot_angle, qreal det_range, qreal rotation, qreal speed, qreal size);
     static void AddObstacleToScene(QGraphicsScene* scene, qreal x, qreal y, qreal size);
 
     static QJsonObject makeRobotJson(const Robot *robot);
