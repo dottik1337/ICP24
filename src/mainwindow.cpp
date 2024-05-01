@@ -10,22 +10,29 @@
 
 #define SIM_SPEED 20
 
-static constexpr int RobotCount = 20;
+static constexpr int RobotCount = 20; //temp remove
 
+/**
+ * @brief MainWindow::MainWindow creates ui and scene
+ * @param parent parent
+ */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     setupScene();
-
-
-
 }
 
+/**
+ * @brief MainWindow::~MainWindow destroys main window
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief MainWindow::setupScene Sets up scene and timer
+ */
 void MainWindow::setupScene()
 {
     // Set up scene
@@ -79,6 +86,12 @@ void MainWindow::setupScene()
 }
 
 
+/**
+ * @brief MainWindow::eventFilter Filters events and processes them
+ * @param obj object to catch events on
+ * @param event caught event
+ * @return true if event was proccesed
+ */
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
     // Handeling mouse presses
@@ -110,6 +123,9 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 }
 
 // pause simalation
+/**
+ * @brief MainWindow::on_pause_clicked pauses animation
+ */
 void MainWindow::on_pause_clicked()
 {
     if(timer->isActive())
@@ -123,6 +139,9 @@ void MainWindow::on_pause_clicked()
 }
 
 // move manual control robot foreward
+/**
+ * @brief MainWindow::on_GO_clicked controls manual robot
+ */
 void MainWindow::on_GO_clicked()
 {
     ui->graphicsView->setFocus();
@@ -133,6 +152,9 @@ void MainWindow::on_GO_clicked()
 }
 
 // rotate manual control robot left
+/**
+ * @brief MainWindow::on_GO_clicked controls manual robot
+ */
 void MainWindow::on_LEFT_clicked()
 {
     ui->graphicsView->setFocus();
@@ -143,6 +165,9 @@ void MainWindow::on_LEFT_clicked()
 }
 
 // rotate manual control robot right
+/**
+ * @brief MainWindow::on_GO_clicked controls manual robot
+ */
 void MainWindow::on_RIGHT_clicked()
 {
     ui->graphicsView->setFocus();
@@ -153,6 +178,9 @@ void MainWindow::on_RIGHT_clicked()
 }
 
 // stop manual control robot
+/**
+ * @brief MainWindow::on_GO_clicked controls manual robot
+ */
 void MainWindow::on_STOP_clicked()
 {
     ui->graphicsView->setFocus();
@@ -163,6 +191,9 @@ void MainWindow::on_STOP_clicked()
 }
 
 // Switch to SIMULATION mode
+/**
+ * @brief MainWindow::on_actionSIm_triggered switches to Simulation window
+ */
 void MainWindow::on_actionSIm_triggered()
 {
     ui->controls->setVisible(true);
@@ -176,6 +207,9 @@ void MainWindow::on_actionSIm_triggered()
 }
 
 // Switch to CREATOR mode
+/**
+ * @brief MainWindow::on_actionCreator_triggered switches to Creator window
+ */
 void MainWindow::on_actionCreator_triggered()
 {
     timer->stop();
@@ -187,12 +221,19 @@ void MainWindow::on_actionCreator_triggered()
 }
 
 // Remove all items from scene
+/**
+ * @brief MainWindow::on_clearScene_clicked Clears scene
+ */
 void MainWindow::on_clearScene_clicked()
 {
     this->clearScene();
 }
 
 // Spawn obstacle on cursor position when left-click
+/**
+ * @brief MainWindow::spawnObstacle Spawns Obstacles on mouse click
+ * @param event mouse click
+ */
 void MainWindow::spawnObstacle(QMouseEvent *event)
 {
     Obstacle *obstacle = new Obstacle();
@@ -202,6 +243,10 @@ void MainWindow::spawnObstacle(QMouseEvent *event)
 }
 
 // Remove item on cursor position when left-click
+/**
+ * @brief MainWindow::removeItem Deletes item on mouse click
+ * @param event mouse click
+ */
 void MainWindow::removeItem(QMouseEvent *event)
 {
     QGraphicsItem *item = ui->graphicsView->scene()->itemAt(ui->graphicsView->mapToScene(event->pos()), QTransform());
@@ -209,6 +254,10 @@ void MainWindow::removeItem(QMouseEvent *event)
 }
 
 // Spawn robot on cursor position when left-click
+/**
+ * @brief MainWindow::spawnRobot Spawns robot on mouse click
+ * @param event mouse click
+ */
 void MainWindow::spawnRobot(QMouseEvent *event)
 {
     Robot *robot = new Robot();
@@ -223,6 +272,9 @@ void MainWindow::spawnRobot(QMouseEvent *event)
 }
 
 // Select ADD_ROBOT mode
+/**
+ * @brief MainWindow::on_addRobot_clicked switches mode
+ */
 void MainWindow::on_addRobot_clicked()
 {
     ui->addObstacle->setChecked(false);
@@ -230,6 +282,9 @@ void MainWindow::on_addRobot_clicked()
 }
 
 // Select ADD_OBSTACLE mode
+/**
+ * @brief MainWindow::on_addRobot_clicked switches mode
+ */
 void MainWindow::on_addObstacle_clicked()
 {
     ui->addRobot->setChecked(false);
@@ -237,6 +292,9 @@ void MainWindow::on_addObstacle_clicked()
 }
 
 // Select DELETE mode
+/**
+ * @brief MainWindow::on_addRobot_clicked switches mode
+ */
 void MainWindow::on_deleteItem_clicked()
 {
     ui->addRobot->setChecked(false);

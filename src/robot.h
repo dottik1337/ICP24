@@ -18,7 +18,7 @@ public:
 
 
     bool rotationDirection = 0; // 0 = left, 1 = right
-    qreal rotationAngle = 45; // degrees
+    int rotationAngle = 45; // degrees
     qreal detectionRange = 50;
     qreal speed = 1;
     qreal size = 20;
@@ -32,7 +32,7 @@ protected:
 
 private:
     int state = 0; // 0 = idle, 1 = forward, 2 = right, 3 = left
-    qreal finRotation = this->rotation();
+    int finRotation = this->rotation();
 };
 
 

@@ -340,7 +340,7 @@
           <item>
            <widget class="QDoubleSpinBox" name="crRobotRotationAngle">
             <property name="decimals">
-             <number>1</number>
+             <number>0</number>
             </property>
             <property name="maximum">
              <double>360.000000000000000</double>
@@ -512,7 +512,7 @@
   </widget>
   <action name="actionSIm">
    <property name="text">
-    <string>Simulation</string>
+    <string>&amp;Simulation</string>
    </property>
    <property name="toolTip">
     <string>Simulate enviroment</string>
@@ -523,7 +523,7 @@
   </action>
   <action name="actionCreator">
    <property name="text">
-    <string>Creator</string>
+    <string>&amp;Creator</string>
    </property>
    <property name="toolTip">
     <string>Create enviroment</string>

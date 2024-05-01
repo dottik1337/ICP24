@@ -8,6 +8,9 @@
 
 #define ROTATIONSPEED 1
 
+/**
+ * @brief Robot::Robot Sets up robot
+ */
 Robot::Robot()
 {
     setAcceptHoverEvents(true);
@@ -16,6 +19,10 @@ Robot::Robot()
 }
 
 // Robot area for redrawing
+/**
+ * @brief Robot::boundingRect Creates rectangle for drawing purposes of the app
+ * @return  Redrawing rectangle
+ */
 QRectF Robot::boundingRect() const
 {
     qreal adjust = 5;
@@ -24,6 +31,10 @@ QRectF Robot::boundingRect() const
 }
 
 // Robot hitbox
+/**
+ * @brief Robot::shape Creates hitbox of robot
+ * @return Robot hitbox
+ */
 QPainterPath Robot::shape() const
 {
     QPainterPath path;
@@ -32,6 +43,10 @@ QPainterPath Robot::shape() const
 }
 
 // Robot visual
+/**
+ * @brief Robot::paint Robot visual
+ * @param painter Robot visaul
+ */
 void Robot::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // Body
@@ -42,8 +57,15 @@ void Robot::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 }
 
 // Animate Robots
+/**
+ * @brief Robot::advance Creates robot behavior
+ * @param step signal from timer to move to next frame
+ */
 void Robot::advance(int step)
 {
+    finRotation = finRotation%360;
+    setRotation(int(rotation()) % 360);
+
     if (!step)
         return;
 
@@ -56,14 +78,14 @@ void Robot::advance(int step)
     {
         if ( finRotation != this->rotation())
         {
-            rotationDirection ? setRotation(rotation() - ROTATIONSPEED) : setRotation(rotation() + ROTATIONSPEED);
+            rotationDirection ? setRotation((rotation() - ROTATIONSPEED)) : setRotation((rotation() + ROTATIONSPEED));
         }
 
         else
         {
             if (dangerObstacle.size() != 0)
             {
-                rotationDirection ? finRotation -= rotationAngle : finRotation+= rotationAngle;
+                rotationDirection ? finRotation -= rotationAngle: finRotation += rotationAngle;
             }
             else
             {
@@ -96,6 +118,10 @@ void Robot::advance(int step)
 
 
 // Selecting robot for manual control
+/**
+ * @brief Robot::mousePressEvent Selecting robot
+ * @param event Mouse click
+ */
 void Robot::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene* scene = this->scene();
@@ -117,6 +143,10 @@ void Robot::mousePressEvent(QGraphicsSceneMouseEvent* event)
 }
 
 // Manual controls on keyboard
+/**
+ * @brief Robot::keyPressEvent Controlling selected robot with keyboard
+ * @param event Keyboard press
+ */
 void Robot::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_W)
