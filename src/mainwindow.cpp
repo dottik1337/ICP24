@@ -7,7 +7,8 @@
 #include "savemanager.h"
 #include <qmath.h>
 #include <QFileDialog>
-#include <QMessageBox> //remove
+
+#define SIM_SPEED 20
 
 static constexpr int RobotCount = 20;
 
@@ -75,7 +76,6 @@ void MainWindow::setupScene()
     // Set up simulation
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, scene, &QGraphicsScene::advance);
-    timer->start(30);
 }
 
 
@@ -118,7 +118,7 @@ void MainWindow::on_pause_clicked()
     }
     else
     {
-        timer->start(30);
+        timer->start(SIM_SPEED);
     }
 }
 
@@ -213,7 +213,7 @@ void MainWindow::spawnRobot(QMouseEvent *event)
 {
     Robot *robot = new Robot();
     robot->size = ui->crRobotSize->value();
-    robot->detectionRange = ui->crRobotDetectionRange->value();
+    robot->detectionRange = ui->crRobotDetectionRange->value() > ui->crRobotSize->value()/2 ? ui->crRobotDetectionRange->value() : ui->crRobotSize->value()/2;
     robot->rotationAngle = ui->crRobotRotationAngle->value();
     robot->rotationDirection = ui->crRobotRotationDirection->currentIndex();
     robot->setRotation(ui->crRobotDirection->value());

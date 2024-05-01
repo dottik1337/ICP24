@@ -6,7 +6,7 @@
 #include <QStyleOption>
 
 
-const qreal MANUALROTATIONSPEED = 1;
+#define ROTATIONSPEED 1
 
 Robot::Robot()
 {
@@ -20,7 +20,7 @@ QRectF Robot::boundingRect() const
 {
     qreal adjust = 5;
     return QRectF(QPointF(-size - adjust, -size - adjust),
-                  QPoint(size + adjust, detectionRange + adjust));
+                  QPoint(size + adjust, detectionRange > size/2 ? detectionRange + adjust : size + adjust));
 }
 
 // Robot hitbox
@@ -54,14 +54,22 @@ void Robot::advance(int step)
     // Is automatic robot
     if (!isSelected() && !hasFocus())
     {
-        if (dangerObstacle.size() != 0)
+        if ( finRotation != this->rotation())
         {
-            rotationDirection ? setRotation(rotation() - (rotationAngle)) : setRotation(rotation() + (rotationAngle));
+            rotationDirection ? setRotation(rotation() - ROTATIONSPEED) : setRotation(rotation() + ROTATIONSPEED);
         }
+
         else
         {
-            setPos(mapToParent(0, speed));
+            if (dangerObstacle.size() != 0)
+            {
+                rotationDirection ? finRotation -= rotationAngle : finRotation+= rotationAngle;
+            }
+            else
+            {
+                setPos(mapToParent(0, speed));
 
+            }
         }
     }
     // Manual robot
@@ -77,11 +85,11 @@ void Robot::advance(int step)
         }
         else if (state == 2)
         {
-            setRotation(rotation() + (MANUALROTATIONSPEED));
+            setRotation(rotation() + (ROTATIONSPEED));
         }
         else if (state == 3)
         {
-            setRotation(rotation() - (MANUALROTATIONSPEED));
+            setRotation(rotation() - (ROTATIONSPEED));
         }
     }
 }
