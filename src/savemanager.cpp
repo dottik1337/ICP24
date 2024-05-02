@@ -109,8 +109,7 @@ void SaveManager::AddRobotToScene(QGraphicsScene* scene, qreal x, qreal y, bool 
     robot->rotationAngle = rot_angle;
     robot->detectionRange = det_range;
     robot->speed = speed;
-    robot->setRotation(rotation);
-    robot->finRotation = rotation;
+    robot->SetRot(rotation);
     robot->size = size;
 
     scene->addItem(robot);

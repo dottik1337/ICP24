@@ -34,7 +34,7 @@ public:
     qreal detectionRange = 50;
     qreal speed = 1;
     qreal size = 20;
-    int finRotation = this->rotation();
+    void SetRot(qreal rotation);
 
 protected:
     void advance(int step) override;
@@ -44,7 +44,7 @@ protected:
 
 private:
     int state = 0; // 0 = idle, 1 = forward, 2 = right, 3 = left
-
+    int finRotation = this->rotation();
 };
 
 

@@ -68,6 +68,13 @@ void Robot::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     painter->drawLine(QLine(QPoint(0,0), QPoint(0, detectionRange)));
 }
 
+void Robot::SetRot(qreal rotation)
+{
+    rotation = (int)rotation % 360;
+    finRotation = rotation;
+    setRotation(rotation);
+}
+
 // Animate Robots
 /**
  * @brief Robot::advance Creates robot behavior

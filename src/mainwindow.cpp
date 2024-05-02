@@ -59,21 +59,22 @@ void MainWindow::setupScene()
     ui->graphicsView->viewport()->installEventFilter(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    // TEMP spawning testing robots and obstacles
+    // Spawning testing robots and obstacles
     for (int i = 0; i < RobotCount; ++i) {
         Robot *robot = new Robot;
         robot->setPos(::sin((i * 6.28) / RobotCount) * 200 + 400,
                       ::cos((i * 6.28) / RobotCount) * 200 + 300);
         robot->rotationDirection = i%2;
+        robot->SetRot((i%4) * 90);
         scene->addItem(robot);
 
         Obstacle *obstacle = new Obstacle;
-        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 160 + 400,
-                         ::cos((i * 6.28) / RobotCount) * 100 + 300);
+        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 300 + 400,
+                         ::cos((i * 6.28) / RobotCount) * 220 + 300);
         scene->addItem(obstacle);
     }
 
-    // TEMP spawning border around items
+    // Spawning border around items
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().topRight())));
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().topLeft(), scene->sceneRect().bottomLeft())));
     scene->addItem(new QGraphicsLineItem(QLineF(scene->sceneRect().bottomRight(), scene->sceneRect().topRight())));
@@ -277,7 +278,7 @@ void MainWindow::spawnRobot(QMouseEvent *event)
     robot->detectionRange = ui->crRobotDetectionRange->value() > ui->crRobotSize->value()/2 ? ui->crRobotDetectionRange->value() : ui->crRobotSize->value()/2;
     robot->rotationAngle = ui->crRobotRotationAngle->value();
     robot->rotationDirection = ui->crRobotRotationDirection->currentIndex();
-    robot->setRotation(ui->crRobotDirection->value());
+    robot->SetRot(ui->crRobotDirection->value());
 
     robot->setPos(ui->graphicsView->mapToScene(event->pos()));
     ui->graphicsView->scene()->addItem(robot);
