@@ -9,5 +9,9 @@ This project is part of the ICP (C++ Seminar) course at VUT FIT.
 - Qt version 5.5 
 - Doxygen (only for generating documentation)
 
-## Usage
+## Compilation
 `make run` to compile and run the project
+
+## Usage
+Use `Alt + C` to enter `Creator Mode`.
+Use `Alt + S` to enter `Simulation Mode`.

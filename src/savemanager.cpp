@@ -1,3 +1,15 @@
+/**
+ * @file savemanager.cpp
+ * @author Zdeněk Šťastný (xstast41@stud.fit.vutbr.cz)
+ * @author Jozef Gallo (xgallo06@stud.fit.vutbr.cz)
+ * @brief Impementation of SaveManager class. Class is responsible for saving and loading game state.
+ * @version 0.1
+ * @date 2024-05-02
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include "savemanager.h"
 #include <QFile>
 #include <QJsonDocument>

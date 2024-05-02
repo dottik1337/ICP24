@@ -1,3 +1,8 @@
+##
+# @file Makefile
+# @author Zdeněk Šťastný (xstast41@stud.fit.vutbr.cz)
+# @author Jozef Gallo (xgallo06@stud.fit.vutbr.cz)
+
 EXEC = ICP
 PACK_FILE = xgallo06_xstast41.zip
 

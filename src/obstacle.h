@@ -1,3 +1,15 @@
+/**
+ * @file obstacle.h
+ * @author Zdeněk Šťastný (xstast41@stud.fit.vutbr.cz)
+ * @author Jozef Gallo (xgallo06@stud.fit.vutbr.cz)
+ * @brief Header file for Obstacle class
+ * @version 0.1
+ * @date 2024-05-02
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #ifndef OBSTACLE_H
 #define OBSTACLE_H
 

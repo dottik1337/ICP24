@@ -1,3 +1,15 @@
+/**
+ * @file mainwindow.cpp
+ * @author Zdeněk Šťastný (xstast41@stud.fit.vutbr.cz)
+ * @author Jozef Gallo (xgallo06@stud.fit.vutbr.cz)
+ * @brief Implementation of MainWindow class
+ * @version 0.1
+ * @date 2024-05-02
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include "mainwindow.h"
 #include "qevent.h"
 #include "ui_mainwindow.h"

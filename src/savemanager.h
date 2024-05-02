@@ -1,3 +1,15 @@
+/**
+ * @file savemanager.h
+ * @author Zdeněk Šťastný (xstast41@stud.fit.vutbr.cz)
+ * @author Jozef Gallo (xgallo06@stud.fit.vutbr.cz)
+ * @brief Header file for SaveManager class. This class is used for saving and loading scenes from JSON files.
+ * @version 0.1
+ * @date 2024-05-02
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #ifndef SAVEMANAGER_H
 #define SAVEMANAGER_H
 
