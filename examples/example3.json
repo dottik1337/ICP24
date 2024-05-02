@@ -1,0 +1,211 @@
+{
+    "obstacles": [
+        {
+            "size": 50,
+            "x": 500,
+            "y": 292
+        },
+        {
+            "size": 50,
+            "x": 53,
+            "y": 289
+        },
+        {
+            "size": 50,
+            "x": 575,
+            "y": 293
+        },
+        {
+            "size": 50,
+            "x": 102,
+            "y": 289
+        },
+        {
+            "size": 50,
+            "x": 728,
+            "y": 295
+        },
+        {
+            "size": 50,
+            "x": 315,
+            "y": 287
+        },
+        {
+            "size": 50,
+            "x": 271,
+            "y": 289
+        },
+        {
+            "size": 50,
+            "x": 6,
+            "y": 287
+        },
+        {
+            "size": 50,
+            "x": 768,
+            "y": 295
+        },
+        {
+            "size": 50,
+            "x": 479,
+            "y": 292
+        },
+        {
+            "size": 50,
+            "x": 650,
+            "y": 293
+        },
+        {
+            "size": 50,
+            "x": 696,
+            "y": 294
+        },
+        {
+            "size": 50,
+            "x": 410,
+            "y": 291
+        },
+        {
+            "size": 50,
+            "x": 615,
+            "y": 293
+        },
+        {
+            "size": 50,
+            "x": 392,
+            "y": 291
+        },
+        {
+            "size": 50,
+            "x": 176,
+            "y": 291
+        },
+        {
+            "size": 50,
+            "x": 146,
+            "y": 292
+        },
+        {
+            "size": 50,
+            "x": 225,
+            "y": 292
+        },
+        {
+            "size": 50,
+            "x": 347,
+            "y": 289
+        }
+    ],
+    "robots": [
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 358,
+            "size": 50,
+            "speed": 1,
+            "x": 75,
+            "y": 95
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 179,
+            "size": 50,
+            "speed": 1,
+            "x": 139,
+            "y": 490
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 179,
+            "size": 50,
+            "speed": 1,
+            "x": 363,
+            "y": 493
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 179,
+            "size": 50,
+            "speed": 1,
+            "x": 451,
+            "y": 496
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 358,
+            "size": 50,
+            "speed": 1,
+            "x": 446,
+            "y": 94
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 358,
+            "size": 50,
+            "speed": 1,
+            "x": 734,
+            "y": 112
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 358,
+            "size": 50,
+            "speed": 1,
+            "x": 554,
+            "y": 103
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 358,
+            "size": 50,
+            "speed": 1,
+            "x": 263,
+            "y": 102
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 179,
+            "size": 50,
+            "speed": 1,
+            "x": 590,
+            "y": 492
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 179,
+            "size": 50,
+            "speed": 1,
+            "x": 707,
+            "y": 491
+        },
+        {
+            "det_range": 50,
+            "rot_angle": 30,
+            "rot_dir": false,
+            "rotation": 179,
+            "size": 50,
+            "speed": 1,
+            "x": 236,
+            "y": 493
+        }
+    ]
+}
