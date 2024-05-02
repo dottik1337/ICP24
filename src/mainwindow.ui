@@ -1,10 +1,3 @@
-<!--
-    @file mainwindow.ui
-    @author Zdeněk Šťastný (xstast41@stud.fit.vutbr.cz)
-    @author Jozef Gallo (xgallo06@stud.fit.vutbr.cz)
-    @brief This file is the main window of the application.
--->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
