@@ -10,11 +10,11 @@ This project is part of the ICP (C++ Seminar) course at VUT FIT.
 - Doxygen (only for generating documentation)
 
 ## Compilation
-`make run` to compile and run the project
+- `make run` to compile and run the project
 
 ## Usage
-Use `Alt + C` to enter `Creator Mode`.
-Use `Alt + S` to enter `Simulation Mode`.
+- Use `Alt + C` to enter `Creator Mode`.
+- Use `Alt + S` to enter `Simulation Mode`.
 
 ## Saving
 Our save system uses Json files that are easily modifiable. Check `examples` folder for more details.
