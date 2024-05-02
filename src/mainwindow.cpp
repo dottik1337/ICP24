@@ -19,6 +19,7 @@
 #include "savemanager.h"
 #include <qmath.h>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #define SIM_SPEED 20
 
@@ -326,7 +327,7 @@ void MainWindow::on_loadScene_clicked()
         SaveManager::readJson(path, ui->graphicsView->scene()); // using existing scene instead of creating new one
     }
     catch (std::exception &e){
-        qWarning() << e.what();
+        QMessageBox::warning(this, "Warning", "This file couldn't be loaded (check for mistakes inside the file)");
     }
 }
 
@@ -341,7 +342,7 @@ void MainWindow::on_saveScene_clicked()
         SaveManager::saveJson(path, this->ui->graphicsView->scene());
     }
     catch (std::exception &e){
-        qWarning() << e.what();
+        QMessageBox::warning(this, "Warning", "This file couldn't be saved");
     }
 
 }
