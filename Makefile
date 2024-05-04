@@ -8,7 +8,7 @@ PACK_FILE = xgallo06_xstast41.zip
 
 PRO = $(wildcard src/*.pro)
 BUILD_DIR = build
-DOCS_DIR = doc/html
+DOCS_DIR = doc
 SRC_DIR = src
 EXAMPLES_DIR = examples
 
@@ -21,7 +21,7 @@ all:
 clean:
 	cd $(BUILD_DIR) && rm -rf * .[!.]*
 	rm -rf build-ICP-Desktop-Debug
-	rm -rf $(DOCS_DIR)
+	rm -rf $(DOCS_DIR)/html
 	rm -f $(PACK_FILE)
 	rm -f README.txt
 

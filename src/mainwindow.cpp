@@ -23,8 +23,6 @@
 
 #define SIM_SPEED 20
 
-static constexpr int RobotCount = 20; //temp remove
-
 /**
  * @brief MainWindow::MainWindow creates ui and scene
  * @param parent parent
@@ -60,19 +58,11 @@ void MainWindow::setupScene()
     ui->graphicsView->viewport()->installEventFilter(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    // Spawning testing robots and obstacles
-    for (int i = 0; i < RobotCount; ++i) {
-        Robot *robot = new Robot;
-        robot->setPos(::sin((i * 6.28) / RobotCount) * 200 + 400,
-                      ::cos((i * 6.28) / RobotCount) * 200 + 300);
-        robot->rotationDirection = i%2;
-        robot->SetRot((i%4) * 90);
-        scene->addItem(robot);
-
-        Obstacle *obstacle = new Obstacle;
-        obstacle->setPos(::sin((i * 6.28) / RobotCount) * 300 + 400,
-                         ::cos((i * 6.28) / RobotCount) * 220 + 300);
-        scene->addItem(obstacle);
+    // Loading default scene
+    try{
+        SaveManager::readJson("../examples/example_default.json",scene);
+    }
+    catch(std::exception &e){
     }
 
     // Spawning border around items
