@@ -68,6 +68,11 @@ void Robot::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     painter->drawLine(QLine(QPoint(0,0), QPoint(0, detectionRange)));
 }
 
+/**
+ * @brief Robot::SetRot Set robot desired rotation to range between 0 and 360 (in degrees)
+ * 
+ * @param rotation is desired rotation of robot
+ */
 void Robot::SetRot(qreal rotation)
 {
     rotation = (int)rotation % 360;

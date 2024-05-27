@@ -314,7 +314,10 @@ void MainWindow::on_deleteItem_clicked()
     ui->addObstacle->setChecked(false);
 }
 
-// Loads file
+/**
+ * @brief MainWindow::on_loadScene_clicked calls loading method
+ * 
+ */
 void MainWindow::on_loadScene_clicked()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"),
@@ -330,7 +333,10 @@ void MainWindow::on_loadScene_clicked()
     }
 }
 
-
+/**
+ * @brief MainWindow::on_saveScene_clicked calls saving method
+ * 
+ */
 void MainWindow::on_saveScene_clicked()
 {
     QString path = QFileDialog::getSaveFileName(this, tr("Save File"),
@@ -346,6 +352,10 @@ void MainWindow::on_saveScene_clicked()
 
 }
 
+/**
+ * @brief MainWindow::clearScene clears scene
+ * 
+ */
 void MainWindow::clearScene(){
     scene->clear();
 
